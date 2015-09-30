@@ -139,7 +139,7 @@ namespace ProjectMiraiDXSE_GUI
             InitializeComponent();
 
             //Disable Not Implemented Command Buttons - remove once implemented
-            button7.Enabled = false;
+            // button7.Enabled = false;
             button8.Enabled = false;
             button9.Enabled = false;
             button10.Enabled = false;
@@ -373,7 +373,12 @@ namespace ProjectMiraiDXSE_GUI
         //Max Snacks
         private void button7_Click(object sender, EventArgs e)
         {
-
+            byte[] Snacks = {09}; // 09 = no overflow / 63 = max with overflow
+            for (int i = 0; i < 10; i++)
+            {
+                Unlock(0x14 + i, Snacks);
+            }
+            MessageBox.Show("Max Snacks unlocked.", "DONE");
         }
 
         //All Songs Max MP
