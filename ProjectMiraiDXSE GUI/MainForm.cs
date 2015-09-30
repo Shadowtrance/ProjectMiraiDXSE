@@ -187,7 +187,7 @@ namespace ProjectMiraiDXSE_GUI
         //Max MP (992244)
         private void button1_Click(object sender, EventArgs e)
         {
-            byte[] value = { 0xf2, 0x3f, 0x40, 0x00 };
+            byte[] value = {0xF4, 0x23, 0x0F, 0x00};
             Unlock(MaxMP, value);
             MessageBox.Show("MP Set to Max with no overflow! (992244)", "DONE");
         }
