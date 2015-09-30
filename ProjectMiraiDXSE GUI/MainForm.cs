@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -7,39 +7,40 @@ namespace ProjectMiraiDXSE_GUI
 {
     public partial class MainForm : Form
     {
-        //Easy Button High Score Offset: 0x04
-        //Easy Button Percentage Offset: 0x08
-        //Easy Button Second Rank Offset: 0x0c
-        //Easy Button Combo Offset: 0x0a
-        //Normal Button First Rank Offset: 0x10
-        //Normal Button High Score Offset: 0x14
-        //Normal Button Percentage Offset: 0x18
-        //Normal Button Second Rank Offset: 0x1c
-        //Normal Button Combo Offset: 0x1a
-        //Hard Button First Rank Offset: 0x20
-        //Hard Button High Score Offset: 0x24
-        //Hard Button Percentage Offset: 0x28
-        //Hard Button Second Rank Offset: 0x2c
-        //Hard Button Combo Offset: 0x2a
+        /*
+        Easy Button High Score Offset: 0x04
+        Easy Button Percentage Offset: 0x08
+        Easy Button Second Rank Offset: 0x0c
+        Easy Button Combo Offset: 0x0a
+        Normal Button First Rank Offset: 0x10
+        Normal Button High Score Offset: 0x14
+        Normal Button Percentage Offset: 0x18
+        Normal Button Second Rank Offset: 0x1c
+        Normal Button Combo Offset: 0x1a
+        Hard Button First Rank Offset: 0x20
+        Hard Button High Score Offset: 0x24
+        Hard Button Percentage Offset: 0x28
+        Hard Button Second Rank Offset: 0x2c
+        Hard Button Combo Offset: 0x2a
 
-        //Easy Touch First Rank Offset: 0x40
-        //Easy Touch High Score Offset: 0x44
-        //Easy Touch Percentage Offset: 0x48
-        //Easy Touch Second Rank Offset: 0x4c
-        //Easy Touch Combo Offset: 0x4a
-        //Normal Touch First Rank Offset: 0x50
-        //Normal Touch High Score Offset: 0x54
-        //Normal Touch Percentage Offset: 0x58
-        //Normal Touch Second Rank Offset: 0x5c
-        //Normal Touch Combo Offset: 0x5a
-        //Hard Touch First Rank Offset: 0x60
-        //Hard Touch High Score Offset: 0x64
-        //Hard Touch Percentage Offset: 0x68
-        //Hard Touch Second Rank Offset: 0x6c
-        //Hard Touch Combo Offset: 0x6a
+        Easy Touch First Rank Offset: 0x40
+        Easy Touch High Score Offset: 0x44
+        Easy Touch Percentage Offset: 0x48
+        Easy Touch Second Rank Offset: 0x4c
+        Easy Touch Combo Offset: 0x4a
+        Normal Touch First Rank Offset: 0x50
+        Normal Touch High Score Offset: 0x54
+        Normal Touch Percentage Offset: 0x58
+        Normal Touch Second Rank Offset: 0x5c
+        Normal Touch Combo Offset: 0x5a
+        Hard Touch First Rank Offset: 0x60
+        Hard Touch High Score Offset: 0x64
+        Hard Touch Percentage Offset: 0x68
+        Hard Touch Second Rank Offset: 0x6c
+        Hard Touch Combo Offset: 0x6a
 
-        //Unlock Song Offset: 0x98
-
+        Unlock Song Offset: 0x98
+        */
         string save = "bk_m2r.bin";
 
         private int MaxMP = 0x0008;
@@ -73,7 +74,7 @@ namespace ProjectMiraiDXSE_GUI
         //Second List in each list are each items in that catagory
 
         //Small Items
-        private int[][] SmallItems = new int[][]
+        private int[][] SmallItems =
         {
             new int[] { 0x6a28, 0x6a40, 0x6a48, 0x6a58, 0x6a60, 0x6a78, 0x6a88, 0x6a90, 0x6ac8, 0x6ad0, 0x6ad8, 0x6af0, 0x6af8 },
 
@@ -84,7 +85,7 @@ namespace ProjectMiraiDXSE_GUI
         };
 
         //Medium Items
-        private int[][] MediumItems = new int[][]
+        private int[][] MediumItems =
         {
             new int[] { 0x6bd8, 0x6c10, 0x6c80 },
             new int[] { 0x6b50, 0x6B58, 0x6B60, 0x6B68, 0x6B70, 0x6B78, 0x6B80, 0x6B88, 0x6B88,
@@ -95,7 +96,7 @@ namespace ProjectMiraiDXSE_GUI
         };
 
         //Large Items
-        private int[][] LargeItems = new int[][]
+        private int[][] LargeItems =
         {
             new int[] { 0x6d38 },
 
@@ -110,10 +111,17 @@ namespace ProjectMiraiDXSE_GUI
         };
 
         //Air Items
-        private int[][] AirItems = new int[][] { new int[] { 0x6e90 }, new int[] { 0x6e70, 0x6e78, 0x6e80, 0x6e88, 0x6e90 }};
+        private int[][] AirItems =
+        {
+            new int[] { 0x6e90 },
+            new int[] { 0x6e70, 0x6e78, 0x6e80, 0x6e88, 0x6e90 }
+        };
 
         //Pool Items
-        private int[] PoolItems = { 0x6EC0, 0x6EC8, 0x6ED0, 0x6ED8 };
+        private int[] PoolItems =
+        {
+            0x6EC0, 0x6EC8, 0x6ED0, 0x6ED8
+        };
 
         //Outfits
         private int[] Outfits =
@@ -131,6 +139,16 @@ namespace ProjectMiraiDXSE_GUI
             0x63E8, 0x6408, 0x6428, 0x6468, 0x6488, 0x64A8, 0x64C8, 0x64E8, 0x6508, 0x6548,
             0x6568, 0x6588, 0x65A8, 0x65C8, 0x65E8, 0x6608, 0x6628, 0x6648, 0x6668, 0x6688
         };
+        //Percent Offset
+        private int[] percent =
+        {
+            0x08, 0x18, 0x28, 0x48, 0x58, 0x68
+        };
+        //Percent 100%
+        private byte[] percvalue =
+        {
+            0x00, 0x00, 0x80, 0x3F
+        };
 
         //===================
 
@@ -139,9 +157,7 @@ namespace ProjectMiraiDXSE_GUI
             InitializeComponent();
 
             //Disable Not Implemented Command Buttons - remove once implemented
-            // button7.Enabled = false;
             button8.Enabled = false;
-            button9.Enabled = false;
             button10.Enabled = false;
             button11.Enabled = false;
             //===================
@@ -390,7 +406,15 @@ namespace ProjectMiraiDXSE_GUI
         //All Songs 100%
         private void button9_Click(object sender, EventArgs e)
         {
-
+            
+            foreach (var S in Songs)
+            {
+                foreach (var P in percent)
+                {
+                    Unlock(S + P, percvalue);
+                }
+            }
+            MessageBox.Show("All Songs 100%.", "DONE");
         }
 
         //All Songs Max Combo
