@@ -11,42 +11,43 @@ namespace ProjectMiraiDXSE_GUI
         Easy Button High Score Offset: 0x04
         Easy Button Percentage Offset: 0x08
         Easy Button Second Rank Offset: 0x0c
-        Easy Button Combo Offset: 0x0a
+        Easy Button Combo Offset: 0x0e
         Normal Button First Rank Offset: 0x10
         Normal Button High Score Offset: 0x14
         Normal Button Percentage Offset: 0x18
         Normal Button Second Rank Offset: 0x1c
-        Normal Button Combo Offset: 0x1a
+        Normal Button Combo Offset: 0x1e
         Hard Button First Rank Offset: 0x20
         Hard Button High Score Offset: 0x24
         Hard Button Percentage Offset: 0x28
         Hard Button Second Rank Offset: 0x2c
-        Hard Button Combo Offset: 0x2a
+        Hard Button Combo Offset: 0x2e
 
         Easy Touch First Rank Offset: 0x40
         Easy Touch High Score Offset: 0x44
         Easy Touch Percentage Offset: 0x48
         Easy Touch Second Rank Offset: 0x4c
-        Easy Touch Combo Offset: 0x4a
+        Easy Touch Combo Offset: 0x4e
         Normal Touch First Rank Offset: 0x50
         Normal Touch High Score Offset: 0x54
         Normal Touch Percentage Offset: 0x58
         Normal Touch Second Rank Offset: 0x5c
-        Normal Touch Combo Offset: 0x5a
+        Normal Touch Combo Offset: 0x5e
         Hard Touch First Rank Offset: 0x60
         Hard Touch High Score Offset: 0x64
         Hard Touch Percentage Offset: 0x68
         Hard Touch Second Rank Offset: 0x6c
-        Hard Touch Combo Offset: 0x6a
+        Hard Touch Combo Offset: 0x6e
 
         Unlock Song Offset: 0x98
         */
+
         string save = "bk_m2r.bin";
 
         private int MaxMP = 0x0008;
         private int AgentMoose = 0x98;
         private int deathwilldie = 0x20;
-        private int SpankrPoodle = 0x40;
+        private int SpankrPoodle = 0x60;
         private int SpankrPoodle2 = 0x50;
         private int Wrench_King = 0x00;
         private int Nirvash_TypeZero = 0x0c;
@@ -58,6 +59,20 @@ namespace ProjectMiraiDXSE_GUI
         private int destructo = 0x5c;
         private int A051019194709_1 = 0x6c;
         private int A051019194709_2 = 0x60;
+
+        private int EBH = 0x04;
+        private int NBH = 0x14;
+        private int HBH = 0x24;
+        private int ETH = 0x44;
+        private int NTH = 0x54;
+        private int HTH = 0x64;
+
+        private int EBC = 0x0e;
+        private int NBC = 0x1e;
+        private int HBC = 0x2e;
+        private int ETC = 0x4e;
+        private int NTC = 0x5e;
+        private int HTC = 0x6e;
 
         //===================
 
@@ -139,11 +154,13 @@ namespace ProjectMiraiDXSE_GUI
             0x63E8, 0x6408, 0x6428, 0x6468, 0x6488, 0x64A8, 0x64C8, 0x64E8, 0x6508, 0x6548,
             0x6568, 0x6588, 0x65A8, 0x65C8, 0x65E8, 0x6608, 0x6628, 0x6648, 0x6668, 0x6688
         };
+
         //Percent Offset
         private int[] percent =
         {
             0x08, 0x18, 0x28, 0x48, 0x58, 0x68
         };
+
         //Percent 100%
         private byte[] percvalue =
         {
@@ -157,8 +174,6 @@ namespace ProjectMiraiDXSE_GUI
             InitializeComponent();
 
             //Disable Not Implemented Command Buttons - remove once implemented
-            button8.Enabled = false;
-            button10.Enabled = false;
             button11.Enabled = false;
             //===================
             if (!File.Exists("bk_m2r.bin"))
@@ -225,15 +240,15 @@ namespace ProjectMiraiDXSE_GUI
             byte[] value = { 0x01 };
             foreach (var Song_offset in Songs)
             {
-                //Unlock All Hard Button
+                //Unlock Hard Button
                 Unlock(Song_offset + deathwilldie, value);
             }
             foreach (var Song_offset in Songs)
             {
-                //Unlock All Hard Touch
+                //Unlock Hard Touch
                 Unlock(Song_offset + SpankrPoodle, value);
             }
-            MessageBox.Show("All Hard Mode difficulties Unlocked!", "DONE");
+            MessageBox.Show("All Hard Mode and Super Hard Mode difficulties Unlocked!", "DONE");
         }
 
         //Unlock Items
@@ -269,7 +284,7 @@ namespace ProjectMiraiDXSE_GUI
             byte[] value = { 0x03 };
             foreach (var outfits in Outfits)
             {
-                //Unlock all Outfits in Shop
+                //Unlock All Outfits
                 Unlock(outfits, value);
             }
             MessageBox.Show("All Outfits in the shop Unlocked, but not paid for.", "DONE");
@@ -281,6 +296,8 @@ namespace ProjectMiraiDXSE_GUI
             byte[] value1 = { 0xAA };
             byte[] value2 = { 0x05 };
             byte[] value3 = { 0x00 };
+            byte[] value4 = { 0x3F, 0x42, 0x0F, 0x00 };
+            byte[] value5 = { 0xE7, 0x03 };
 
             //Perfect Each Song
             foreach (var Song_offset in Songs)
@@ -292,60 +309,120 @@ namespace ProjectMiraiDXSE_GUI
             {
                 Unlock(Song_offset + Wrench_King, value2);
             }
+            //All Easy Button High Score = 999999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + EBH, value4);
+            }
             //All Easy Button Second Rank = S+
             foreach (var Song_offset in Songs)
             {
                 Unlock(Song_offset + Nirvash_TypeZero, value3);
+            }
+            //All Easy Button Combo = 999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + EBC, value5);
             }
             //All Normal Button Rank = Perfect
             foreach (var Song_offset in Songs)
             {
                 Unlock(Song_offset + Badger41, value2);
             }
+            //All Normal Button High Score = 999999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + NBH, value4);
+            }
             //All Normal Button Second Rank = S+
             foreach (var Song_offset in Songs)
             {
                 Unlock(Song_offset + sKiLLz, value3);
+            }
+            //All Normal Button Combo = 999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + NBC, value5);
             }
             //All Hard Button Rank = Perfect
             foreach (var Song_offset in Songs)
             {
                 Unlock(Song_offset + deathwilldie, value2);
             }
+            //All Hard Button High Score = 999999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + HBH, value4);
+            }
             //All Hard Button Second Rank = S+
             foreach (var Song_offset in Songs)
             {
                 Unlock(Song_offset + reDFlag, value3);
+            }
+            //All Hard Button Combo = 999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + HBC, value5);
             }
             //All Easy Touch Rank = Perfect
             foreach (var Song_offset in Songs)
             {
                 Unlock(Song_offset + Vernon, value2);
             }
+            //All Easy Touch High Score = 999999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + ETH, value4);
+            }
             //All Easy Touch Second Rank = S+
             foreach (var Song_offset in Songs)
             {
                 Unlock(Song_offset + eYeDoL, value3);
+            }
+            //All Easy Touch Combo = 999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + ETC, value5);
             }
             //All Normal Touch Rank = Perfect
             foreach (var Song_offset in Songs)
             {
                 Unlock(Song_offset + SpankrPoodle2, value2);
             }
+            //All Normal Touch High Score = 999999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + NTH, value4);
+            }
             //All Normal Touch Second Rank = S+
             foreach (var Song_offset in Songs)
             {
                 Unlock(Song_offset + destructo, value3);
+            }
+            //All Normal Touch Combo = 999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + NTC, value5);
             }
             //All Hard Touch Rank = Perfect
             foreach (var Song_offset in Songs)
             {
                 Unlock(Song_offset + A051019194709_2, value2);
             }
+            //All Hard Touch High Score = 999999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + HTH, value4);
+            }
             //All Normal Touch Second Rank = S+
             foreach (var Song_offset in Songs)
             {
                 Unlock(Song_offset + A051019194709_1, value3);
+            }
+            //All Hard Touch Combo = 999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + HTC, value5);
             }
             //Buy All Small Items in Shop
             foreach (var items in SmallItems[1])
@@ -382,10 +459,17 @@ namespace ProjectMiraiDXSE_GUI
             {
                 Unlock(outfits, value2);
             }
-            MessageBox.Show("All Songs Unlocked and Perfect Rank!" + Environment.NewLine + "All Room Items in the shop unlocked and paid for!" + Environment.NewLine + "All Outfits in the shop unlocked and paid for!" + Environment.NewLine + "All done, you cheater. ;)", "DONE");
+            //All Songs 100%
+            foreach (var S in Songs)
+            {
+                foreach (var P in percent)
+                {
+                    Unlock(S + P, percvalue);
+                }
+            }
+            MessageBox.Show("All Songs Unlocked and at Perfect Rank!" + Environment.NewLine + "All Songs Max High Score, 100.00% Percentage Hit and Max Combo!" + Environment.NewLine + "All Room Items in the shop unlocked and paid for!" + Environment.NewLine + "All Outfits in the shop unlocked and paid for!" + Environment.NewLine + "All done, you cheater. ;)", "DONE");
         }
 
-        //===================NOT IMPLEMENTED YET
         //Max Snacks
         private void button7_Click(object sender, EventArgs e)
         {
@@ -394,19 +478,50 @@ namespace ProjectMiraiDXSE_GUI
             {
                 Unlock(0x14 + i, Snacks);
             }
-            MessageBox.Show("Max Snacks unlocked.", "DONE");
+            MessageBox.Show("Max Snacks unlocked." + Environment.NewLine + "All Snacks set to 9", "DONE");
         }
 
         //All Songs Max MP
         private void button8_Click(object sender, EventArgs e)
         {
+            byte[] value = { 0x3F, 0x42, 0x0F, 0x00 };
 
+            //All Easy Button High Score = 999999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + EBH, value);
+            }
+            //All Normal Button High Score = 999999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + NBH, value);
+            }
+            //All Hard Button High Score = 999999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + HBH, value);
+            }
+            //All Easy Touch High Score = 999999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + ETH, value);
+            }
+            //All Normal Touch High Score = 999999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + NTH, value);
+            }
+            //All Hard Touch High Score = 999999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + HTH, value);
+            }
+            MessageBox.Show("All Songs High Score at 999,999!", "DONE");
         }
 
         //All Songs 100%
         private void button9_Click(object sender, EventArgs e)
         {
-            
             foreach (var S in Songs)
             {
                 foreach (var P in percent)
@@ -414,15 +529,48 @@ namespace ProjectMiraiDXSE_GUI
                     Unlock(S + P, percvalue);
                 }
             }
-            MessageBox.Show("All Songs 100%.", "DONE");
+            MessageBox.Show("All Songs hit percentage at 100%.", "DONE");
         }
 
         //All Songs Max Combo
         private void button10_Click(object sender, EventArgs e)
         {
+            byte[] value = { 0xE7, 0x03 };
 
+            //All Easy Button Combo = 999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + EBC, value);
+            }
+            //All Normal Button Combo = 999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + NBC, value);
+            }
+            //All Hard Button Combo = 999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + HBC, value);
+            }
+            //All Easy Touch Combo = 999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + ETC, value);
+            }
+            //All Normal Touch Combo = 999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + NTC, value);
+            }
+            //All Hard Touch Combo = 999
+            foreach (var Song_offset in Songs)
+            {
+                Unlock(Song_offset + HTC, value);
+            }
+            MessageBox.Show("All Songs Max Combo at 999!", "DONE");
         }
 
+        //===================NOT IMPLEMENTED YET
         //Unlock All Stamps
         private void button11_Click(object sender, EventArgs e)
         {
