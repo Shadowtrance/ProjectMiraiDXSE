@@ -172,9 +172,7 @@ namespace ProjectMiraiDXSE_GUI
         public MainForm()
         {
             InitializeComponent();
-
-            //Disable Not Implemented Command Buttons - remove once implemented
-            
+          
             //===================
             if (!File.Exists("bk_m2r.bin"))
             {
@@ -570,7 +568,6 @@ namespace ProjectMiraiDXSE_GUI
             MessageBox.Show("All Songs Max Combo at 999!", "DONE");
         }
 
-        //===================NOT IMPLEMENTED YET
         //Unlock All Stamps
         private void button11_Click(object sender, EventArgs e)
         {
