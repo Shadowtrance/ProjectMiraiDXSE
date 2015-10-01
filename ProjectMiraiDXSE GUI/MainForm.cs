@@ -174,7 +174,7 @@ namespace ProjectMiraiDXSE_GUI
             InitializeComponent();
 
             //Disable Not Implemented Command Buttons - remove once implemented
-            button11.Enabled = false;
+            
             //===================
             if (!File.Exists("bk_m2r.bin"))
             {
@@ -574,7 +574,12 @@ namespace ProjectMiraiDXSE_GUI
         //Unlock All Stamps
         private void button11_Click(object sender, EventArgs e)
         {
-
+            byte[] Stamps = { 01 };
+            for (int i = 0; i < 115; i++)
+            {
+                Unlock(0x7B0C + i, Stamps);
+            }
+            MessageBox.Show("All Stamps unlocked!", "DONE");
         }
 
         //===================
